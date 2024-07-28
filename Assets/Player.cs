@@ -9,16 +9,21 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     private Animator anim;
 
-    [Header("Movement Data")]
+    [Header("Movement")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     private float xInput;
+
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashDuration;
+    [SerializeField] private float dashTime;
 
     [Header("Flip Sprite")]
     private int facingDir = 1;
     private bool facingRight = true;
 
-    [Header("Collision Rules")]
+    [Header("Collision")]
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
     private bool isGrounded;
@@ -35,6 +40,19 @@ public class Player : MonoBehaviour
     {
         Movement();
         CheckInput();
+
+        dashTime -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            dashTime = dashDuration;
+        }
+
+        if (dashTime > 0)
+        {
+            Debug.Log("I am dashing");
+        }
+
         CollisionChecks();
         FlipController();
         AnimatorControllers();
@@ -54,7 +72,15 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        if (dashTime > 0)
+        {
+            rb.velocity = new Vector2(xInput * dashSpeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        }
+
     }
 
     private void Jump()
@@ -67,9 +93,7 @@ public class Player : MonoBehaviour
     {
         bool isMoving = rb.velocity.x != 0;
         anim.SetFloat("yVelocity", rb.velocity.y);
-
         anim.SetBool("isMoving", isMoving);
-
         // raycast determines value of isGrounded
         anim.SetBool("isGrounded", isGrounded);
     }
