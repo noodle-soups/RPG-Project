@@ -421,6 +421,7 @@ MonoBehaviour:
   rb: {fileID: 1360210429}
   xInput: 0
   moveSpeed: 5
+  isMoving: 0
   jumpForce: 10
 --- !u!70 &1360210432
 CapsuleCollider2D:
@@ -467,6 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2068132302}
   - component: {fileID: 2068132303}
+  - component: {fileID: 2068132304}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -541,6 +543,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2068132304
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068132301}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d3204c7e9c11f37448bc42377f5dcce7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
