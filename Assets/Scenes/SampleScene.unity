@@ -294,7 +294,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -3.7, z: 0}
-  m_LocalScale: {x: 17.722502, y: 1, z: 1}
+  m_LocalScale: {x: 43.86319, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1012720162}
   - component: {fileID: 1012720161}
   m_Layer: 3
-  m_Name: Platform (1)
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,6 +551,9 @@ MonoBehaviour:
   rb: {fileID: 1360210429}
   moveSpeed: 5
   jumpForce: 15
+  dashSpeed: 20
+  dashDuration: 0.25
+  dashTime: 0
   groundCheckDistance: 1.6
   whatIsGround:
     serializedVersion: 2

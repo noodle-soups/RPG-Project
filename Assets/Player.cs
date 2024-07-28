@@ -41,17 +41,14 @@ public class Player : MonoBehaviour
         Movement();
         CheckInput();
 
+        // dash logic
         dashTime -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Z))
-        {
             dashTime = dashDuration;
-        }
 
         if (dashTime > 0)
-        {
             Debug.Log("I am dashing");
-        }
 
         CollisionChecks();
         FlipController();
@@ -73,13 +70,9 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         if (dashTime > 0)
-        {
-            rb.velocity = new Vector2(xInput * dashSpeed, rb.velocity.y);
-        }
+            rb.velocity = new Vector2(xInput * dashSpeed, 0); // y = 0 prevents descent during a dash
         else
-        {
             rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
-        }
 
     }
 
@@ -96,6 +89,8 @@ public class Player : MonoBehaviour
         anim.SetBool("isMoving", isMoving);
         // raycast determines value of isGrounded
         anim.SetBool("isGrounded", isGrounded);
+        // only true when dash is pressed
+        anim.SetBool("isDashing", dashTime > 0);
     }
 
     private void Flip()
