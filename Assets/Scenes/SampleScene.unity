@@ -549,11 +549,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1360210429}
-  moveSpeed: 5
+  moveSpeed: 7.5
   jumpForce: 15
-  dashSpeed: 20
+  dashSpeed: 30
   dashDuration: 0.25
   dashTime: 0
+  dashCooldown: 5
+  dashCooldownTimer: 0
   groundCheckDistance: 1.6
   whatIsGround:
     serializedVersion: 2
