@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashTime;
+    [SerializeField] private float dashCooldown;
+    [SerializeField] private float dashCooldownTimer;
 
     [Header("Flip Sprite")]
     private int facingDir = 1;
@@ -38,21 +40,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Movement();
         CheckInput();
+        Movement();
 
-        // dash logic
+        // dash ability
         dashTime -= Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.Z))
-            dashTime = dashDuration;
-
-        if (dashTime > 0)
-            Debug.Log("I am dashing");
+        dashCooldownTimer -= Time.deltaTime;
 
         CollisionChecks();
         FlipController();
         AnimatorControllers();
+
+        // debug
+        Debug.Log(facingDir);
     }
 
     private void CollisionChecks()
@@ -65,12 +65,27 @@ public class Player : MonoBehaviour
         xInput = Input.GetAxisRaw("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space))
             Jump();
+        
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            DashAbility();
+        }
+    }
+
+    private void DashAbility()
+    {
+        if (dashCooldownTimer < 0)
+        {
+            dashCooldownTimer = dashCooldown;
+            dashTime = dashDuration;
+        }
     }
 
     private void Movement()
     {
         if (dashTime > 0)
-            rb.velocity = new Vector2(xInput * dashSpeed, 0); // y = 0 prevents descent during a dash
+            //rb.velocity = new Vector2(xInput * dashSpeed, 0);
+            rb.velocity = new Vector2(facingDir * dashSpeed, 0);
         else
             rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
 
