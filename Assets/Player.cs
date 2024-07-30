@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashCooldownTimer;
 
     [Header("Attack")]
+    [SerializeField] private float comboTime = .3f;
+    private float comboTimeWindow;
     private bool isAttacking;
     private int comboCounter;
 
@@ -50,13 +53,15 @@ public class Player : MonoBehaviour
         // dash ability
         dashTime -= Time.deltaTime;
         dashCooldownTimer -= Time.deltaTime;
+        comboTimeWindow -= Time.deltaTime;
+
 
         CollisionChecks();
         FlipController();
         AnimatorControllers();
 
         // debug
-        Debug.Log(facingDir);
+        //Debug.Log(isAttacking);
     }
 
     public void AttackOver()
@@ -87,9 +92,19 @@ public class Player : MonoBehaviour
 
         // attack
         if (Input.GetKeyDown(KeyCode.Mouse0))
-            isAttacking = true;
-        
+        {
+            StartAttackEvent();
+        }
+    }
 
+    private void StartAttackEvent()
+    {
+        if (!isGrounded)
+            return;
+        if (comboTimeWindow < 0)
+            comboCounter = 0;
+        isAttacking = true;
+        comboTimeWindow = comboTime;
     }
 
     private void DashAbility()
@@ -103,11 +118,12 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        if (dashTime > 0)
+        if (isAttacking)
+            rb.velocity = new Vector2(0, 0);
+        else if (dashTime > 0)
             rb.velocity = new Vector2(facingDir * dashSpeed, 0);
         else
             rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
-
     }
 
     private void Jump()
