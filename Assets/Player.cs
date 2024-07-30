@@ -62,6 +62,9 @@ public class Player : MonoBehaviour
     public void AttackOver()
     {
         isAttacking = false;
+        comboCounter++;
+        if (comboCounter > 2)
+            comboCounter = 0;
     }
 
     private void CollisionChecks()
