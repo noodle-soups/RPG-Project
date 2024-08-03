@@ -61,15 +61,7 @@ public class Player : MonoBehaviour
         AnimatorControllers();
 
         // debug
-        //Debug.Log(isAttacking);
-    }
-
-    public void AttackOver()
-    {
-        isAttacking = false;
-        comboCounter++;
-        if (comboCounter > 2)
-            comboCounter = 0;
+        Debug.Log(isAttacking);
     }
 
     private void CollisionChecks()
@@ -105,6 +97,14 @@ public class Player : MonoBehaviour
             comboCounter = 0;
         isAttacking = true;
         comboTimeWindow = comboTime;
+    }
+
+    public void AttackOver()
+    {
+        comboCounter++;
+        isAttacking = false;
+        if (comboCounter > 2)
+            comboCounter = 0;
     }
 
     private void DashAbility()
