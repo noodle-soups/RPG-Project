@@ -101,8 +101,8 @@ public class Player : MonoBehaviour
 
     public void AttackOver()
     {
-        comboCounter++;
         isAttacking = false;
+        comboCounter++;
         if (comboCounter > 2)
             comboCounter = 0;
     }
